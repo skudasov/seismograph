@@ -1,0 +1,22 @@
+cluster:
+  creation_timeout: 2m
+  default_region: us-east-2
+  default_image: ami-0c0415cdff14e2a4a
+server:
+  request_timeout: 3s
+  prometheus: true
+  pprof: true
+  body_limit: 10000000000
+  port: 10500
+db:
+  postgres:
+    host: postgres
+    user: postgres
+    pwd: secret
+    db_name: postgres
+    port: 5432
+  minio:
+    url: minio1:9000
+    access_key: minioadmin
+    secret_key: minioadmin
+    path: /data/minio

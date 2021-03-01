@@ -1,0 +1,54 @@
+version: "2.1"
+services:
+  minio1:
+    image: minio/minio:RELEASE.2020-12-10T01-54-29Z
+    restart: always
+    volumes:
+      - data1-1:/data
+    ports:
+      - "9000:9000"
+    environment:
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+    command: server /data/minio
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 5s
+      timeout: 20s
+      retries: 5
+
+  postgres:
+    image: postgres:13.0
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secret
+    ports:
+      - "5432:5432"
+    command: postgres -c shared_preload_libraries=pg_stat_statements -c pg_stat_statements.track=all -c max_connections=500 -c shared_buffers=4GB
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  seismographd:
+    image: "seismographd:latest"
+    depends_on:
+      postgres:
+        condition: service_started
+      minio1:
+        condition: service_healthy
+    links:
+      - postgres
+      - minio1
+    environment:
+      - CFG=.
+    volumes:
+      - ${PWD}/seismographd.yml:/seismographd.yml
+      - ${HOME}/.aws/credentials:/.aws/credentials
+      - ${HOME}/.aws/config:/.aws/config
+    ports:
+      - "10500:10500"
+volumes:
+  data1-1:

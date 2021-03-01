@@ -1,0 +1,23 @@
+.card {
+    min-width: 275px;
+}
+
+.bullet {
+    display: inline-block;
+    transform: scale(0.8);
+}
+
+.title {
+    font-size: 14px
+}
+
+.pos {
+    margin-bottom: 12px
+}
+
+.dataGrid {
+}
+
+.searchBar {
+
+}

@@ -1,0 +1,26 @@
+{
+  "baseUrl": "http://localhost:3000/",
+  "pluginsFile": "cypress/plugins",
+  "fixturesFolder": "cypress/fixtures",
+  "screenshotOnRunFailure": true,
+  "integrationFolder": "cypress/specs",
+  "videosFolder": "cypress/videos",
+  "supportFile": "cypress/support",
+  "screenshotsFolder": "cypress/screenshots",
+  "experimentalFetchPolyfill": true,
+  "video": false,
+  "defaultCommandTimeout": 10000,
+  "responseTimeout": 60000,
+  "viewportHeight": 900,
+  "viewportWidth": 1440,
+  "chromeWebSecurity": false,
+  "reporterOptions": {
+    "charts": true,
+    "overwrite": false,
+    "html": false,
+    "json": true,
+    "reportDir": "cypress/report/mochawesome-report"
+  },
+  "env": {
+  }
+}

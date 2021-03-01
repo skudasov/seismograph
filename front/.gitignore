@@ -1,0 +1,8 @@
+.next
+*-error.log
+coverage/
+.now
+
+.vercel
+node_modules/
+out/
